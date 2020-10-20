@@ -8,3 +8,5 @@ and opens up a windows with a ransom message.
 
 This software is for educational purposes. The author doesnt take
 responsibility for any illegal use of this software.
+
+Thank you.
