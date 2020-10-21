@@ -1,5 +1,8 @@
-import tkinter, os
+#!/usr/bin/python3.8
+import os
+import tkinter
 from tkinter import messagebox
+
 from cryptography.fernet import Fernet
 
 

