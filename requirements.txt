@@ -1,0 +1,3 @@
+pywin32
+cryptography
+python3.8
