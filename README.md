@@ -1,7 +1,9 @@
-#### **Pysces Ransomware**
+#### **Crypto Virus**
 
-A simple ransomware which encrypts files in a target system
-and opens up a windows with a ransom message.
+This is a virus that destroys files in the C: drive of a computer by
+encrypting it. It is also persistent as it hooks itself to the registry
+which helps it run at startup to continue the damage. The virus is also hidden
+in the system to make it difficult to detect.
 
 install requirements.txt:
 
