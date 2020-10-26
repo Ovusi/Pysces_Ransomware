@@ -90,8 +90,8 @@ def show_ransom_note():
 
 
 def main():
-    hide_console()
-    encrypt_file()
+    #hide_console()
+    #encrypt_file()
     message()
     ransom_note()
     show_ransom_note()
