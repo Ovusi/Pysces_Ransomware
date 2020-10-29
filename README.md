@@ -23,4 +23,7 @@ responsibility for any illegal use of this software.
 
 4. Creates and opens a ransom note as well as a window showing the ransom demands after encrypting.
 
+5. Deletes itself (ransomware) after infecting the system and delivering the ransom message and note.
+This is to avoid the malware being recovered by malware analysts for dissection.
+
 Thank you.

