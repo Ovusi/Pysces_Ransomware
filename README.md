@@ -15,7 +15,7 @@ responsibility for any illegal use of this software.
 
 #### **Features:**
 
-1. Works without internet.
+1. Works without internet during local file encryption.
 
 2. Hides console and runs in background to prevent suspicion by victim.
 
@@ -26,4 +26,6 @@ responsibility for any illegal use of this software.
 5. Deletes itself (ransomware) after infecting the system and delivering the ransom message and note.
 This is to avoid the malware being recovered by malware analysts for dissection.
 
+6. Scans for hosts on LAN and tries to connect via FTP port and brute forces it's password.
+If successful, it encrypts all files on the network.
 Thank you.
