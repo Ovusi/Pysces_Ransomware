@@ -32,15 +32,20 @@ for password in passwords:
 def ftpwork():
     global password
     global q
+
     ftpserver = ftplib.FTP_TLS()
     user = 'anonymous'
     port = 21
+
+    host_list = []
     hosts = nmap.PortScanner
-    hosts.all_hosts()
+    h = hosts.all_hosts()
+    host_list.append(h)
+
     password = q.get()
     time.sleep(5)
 
-    for host in hosts:
+    for host in host_list:
         try:
             ftpserver.connect(host, port)
             ftpserver.login(user, password)
