@@ -2,3 +2,4 @@ pywin32
 cryptography
 python3.8
 nmap
+requests

