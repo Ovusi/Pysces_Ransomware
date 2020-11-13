@@ -1,7 +1,10 @@
 #!/usr/bin/python3.8
-import tkinter, getpass, glob
+import getpass
+import glob
 import os
+import tkinter
 from tkinter import messagebox
+
 from cryptography.fernet import Fernet
 
 
@@ -23,7 +26,7 @@ def decrypt():
                     encrypted_data = file.read()
 
                 decrypted_data = f.decrypt(encrypted_data)
-                with open(f_name[:6], "wb") as file:
+                with open(f_name[:-6], "wb") as file:
                     file.write(decrypted_data)
                     os.remove(f_name)
             except Exception as e:
