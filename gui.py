@@ -8,17 +8,17 @@ def gui():
     window = tkinter.Tk()
     window.grid()
     window.title('You have been hacked')
-    window.configure(background='black')
+    window.configure(background='#CC3300')
 
-    # FIRST FRAME ########################################
+    ''' FIRST FRAME ########################################'''
     fullframe = tkinter.Frame(window)
     fullframe.grid(row=0, column=1, pady='0.05', padx='2')
     fullframe.configure(bg='#CC3300', borderwidth=1)
 
-    label1 =tkinter.Label(fullframe)
+    label1 = tkinter.Label(fullframe)
     label1.grid(ipadx='91', ipady='1', pady='1', padx='10', row=0, column=1)
     label1.configure(text=
-"""
+                     """
 YOU HAVE BEEN HACKED.
 """)
     label1.configure(fg='green')
@@ -74,9 +74,9 @@ BELOW AND YOY WILL BE REPLIED WITH THE DECRYPTION SOFTWARE ONCE VERIFIED.
     label3.configure(font=('hack', 8, 'bold'))
     label3.configure(height='1')
     label3.configure(text=
-"""
+                     """
 INFO
-""",)
+""", )
 
     window.mainloop()
 

