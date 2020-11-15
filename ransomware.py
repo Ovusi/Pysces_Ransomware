@@ -1,17 +1,13 @@
 #!/usr/bin/python3.8
-import ftplib
 import getpass
-import glob
 import os
 import subprocess
 import time
-from ftplib import FTP
 
 import sys
 import win32con
 import win32gui
 from cryptography.fernet import Fernet
-import requests
 
 
 status = 'INFECTED'
