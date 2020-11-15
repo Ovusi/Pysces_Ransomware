@@ -28,4 +28,9 @@ This is to avoid the malware being recovered by malware analysts for dissection.
 
 6. Scans for hosts on LAN and tries to connect via FTP port and brute forces it's password.
 If successful, it encrypts all files on the network.
+
+7. Infects certain file extensions and makes them executable, which when opened
+will spread to other uninfected files on other systems and execute its payload.
+It also cannot infect an already infected file.
+
 Thank you.

